@@ -101,6 +101,7 @@ public class HomePage extends BasePage {
             throw new IllegalArgumentException("Could not find any clickable Star button for the sender with name " + senderName + " and subject " + subject);
         }
         wait.until(ExpectedConditions.elementToBeClickable(starButtons.get(0)));
+        LOG.info("Starring the latest email from the sender {} with subject {}", senderName, subject);
         starButtons.get(0).click();
     }
 
@@ -111,6 +112,7 @@ public class HomePage extends BasePage {
             throw new IllegalArgumentException("Could not find any starred email for the sender with name " + senderName + " and subject " + subject);
         }
         wait.until(ExpectedConditions.visibilityOf(starButtons.get(0)));
+        LOG.info("The latest email from the sender {} with subject {} appears to be starred", senderName, subject);
         return starButtons.get(0).isDisplayed();
     }
 
