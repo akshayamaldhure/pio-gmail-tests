@@ -28,8 +28,8 @@ GMAIL_ADDRESS=<gmail_address_here> GMAIL_PASSWORD=<gmail_password_here> make run
 - The core implementation uses the popular [Page Object Model](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/) design pattern with [PageFactory](https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/support/PageFactory.html) to make it easy to maintain various web pages and elements.
 - It has been developed with easy extensibility and maintainability in mind.
 - With separate page classes for each webpage in the application, it is easy to maintain and reuse the code across tests.
-- Separate base classes for initialising the tests and page objects make it easy to extend the solution to author more tests in the future.
-- 
+- Separate base classes for initialising the tests and page objects make it easy to extend the solution to add more tests in the future.
+- Helper classes make it easy to reuse the common flows like login, waiting for an email to be received, etc. across multiple tests.
 
 ## Assumptions
 Since the tests have been authored against a third-party email service (Gmail), they have been written with below assumptions/pre-requisites.
