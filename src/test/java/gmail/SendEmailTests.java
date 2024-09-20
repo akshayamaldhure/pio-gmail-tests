@@ -2,11 +2,14 @@ package gmail;
 
 import constants.GmailTestGroups;
 import helpers.GmailHelper;
+import org.awaitility.Awaitility;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 public class SendEmailTests extends BaseTest {
 
@@ -20,17 +23,27 @@ public class SendEmailTests extends BaseTest {
 
         SoftAssert sofly = new SoftAssert();
 
+        // switch to the Social tab and validate non-empty state
+        gmailHomePage.switchToSocialTab();
+
+        // get the initial count of emails in the inbox
+        int initialEmailsCount = gmailHomePage.getEmailsCount("me", SUBJECT);
+
         // compose and send the email and validate success
-        new GmailHelper().composeEmail(gmailHomePage, RECIPIENTS, SUBJECT, BODY);
-        new GmailHelper().setEmailCategory(gmailHomePage, "Social");
+        GmailHelper.composeEmail(gmailHomePage, RECIPIENTS, SUBJECT, BODY);
+        GmailHelper.setEmailCategory(gmailHomePage, "Social");
         gmailHomePage.clickSendEmailButton();
         Assert.assertTrue(gmailHomePage.isEmailSendSuccessful(), "Email send failed");
 
-        // switch to the Social tab and validate non-empty state
-        gmailHomePage.switchToSocialTab();
+        // wait for the email to be received based on the total email count
+        Awaitility.with().pollInSameThread().pollInterval(2, TimeUnit.SECONDS)
+                .await().alias("Waiting until the total number of emails is increased by at least 1 to confirm email receipt")
+                .atMost(30, TimeUnit.SECONDS)
+                .until(gmailHomePage.isEmailCountIncreased(initialEmailsCount, "me", SUBJECT));
+
         Assert.assertFalse(gmailHomePage.isSocialTabEmpty(), "Social tab is empty on Gmail homepage");
 
-        // star the email and validate star success
+        // mark the email as starred and validate starring success
         gmailHomePage.starLatestEmailBySenderAndSubject("me", SUBJECT);
         sofly.assertTrue(gmailHomePage.isLatestEmailBySenderAndSubjectStarred("me", SUBJECT), "Could not star the latest email on Gmail homepage");
 

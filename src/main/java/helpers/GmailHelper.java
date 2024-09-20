@@ -10,7 +10,7 @@ public class GmailHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(GmailHelper.class);
 
-    public void composeEmail(HomePage gmailHomePage, List<String> recipients, String subject, String body) {
+    public static void composeEmail(HomePage gmailHomePage, List<String> recipients, String subject, String body) {
         LOG.info("Composing an email with subject {} and body {}", subject, body);
         gmailHomePage.clickComposeEmail();
         gmailHomePage.enterRecipientEmailAddresses(recipients);
@@ -18,7 +18,7 @@ public class GmailHelper {
         gmailHomePage.enterBody(body);
     }
 
-    public void setEmailCategory(HomePage gmailHomePage, String category) {
+    public static void setEmailCategory(HomePage gmailHomePage, String category) {
         LOG.info("Setting the category of the email to {}", category);
         gmailHomePage.clickMoreOptionsMenu();
         gmailHomePage.clickOnLabelMenu();

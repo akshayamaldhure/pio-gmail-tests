@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import pages.BasePage;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class HomePage extends BasePage {
 
@@ -136,6 +137,7 @@ public class HomePage extends BasePage {
     public boolean isEmailSendSuccessful() {
         try {
             wait.until(ExpectedConditions.visibilityOf(emailSuccessPopupText));
+            LOG.info("Email sent successfully");
             return true;
         } catch (NoSuchElementException | TimeoutException e) {
             LOG.warn("Email success popup is not observed", e);
@@ -150,5 +152,18 @@ public class HomePage extends BasePage {
             LOG.warn("Social tab is empty", nsee);
             return false;
         }
+    }
+
+    public int getEmailsCount(String senderName, String subject) {
+        List<WebElement> emailRowElements = driver.findElements(By.xpath("//tr[.//span[contains(text(), '" + senderName + "')] and .//span[contains(text(), '" + subject + "')]]"));
+        LOG.info("Found {} emails from the sender {} with subject {}", emailRowElements.size(), senderName, subject);
+        return emailRowElements.size();
+    }
+
+    public Callable<Boolean> isEmailCountIncreased(int initialEmailsCount, String senderName, String subject) {
+        return () -> {
+            int newEmailsCount = this.getEmailsCount(senderName, subject);
+            return newEmailsCount - initialEmailsCount >= 1;
+        };
     }
 }
