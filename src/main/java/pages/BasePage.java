@@ -15,7 +15,7 @@ public class BasePage {
     protected WebDriverWait wait;
 
     public BasePage(WebDriver driver) {
-        LOG.info("Setting up the driver and timeouts");
+        LOG.info("Setting up Selenium WebDriver and configuring timeouts");
         this.driver = driver;
         this.driver.manage().window().maximize();
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); // implicit wait, applies to every element to be searched for

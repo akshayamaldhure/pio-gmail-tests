@@ -37,7 +37,7 @@ public class BaseTest {
     @AfterMethod(alwaysRun = true)
     public void teardownDriver() {
         if (driver != null) {
-            LOG.info("Closing the Chrome browser instance");
+            LOG.info("Terminating the Selenium WebDriver session and closing the Chrome browser instance");
             driver.quit();
         }
     }
