@@ -1,5 +1,6 @@
 package pages.gmail;
 
+import lombok.Getter;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -23,21 +24,26 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[@aria-label='Main menu']")
     public WebElement hamburgerMenu;
 
+    @Getter
     @FindBy(xpath = "//div[contains(text(),'Compose')]")
     public WebElement composeEmailButton;
 
     @FindBy(xpath = "//input[@aria-label='To recipients']")
     public WebElement recipientsInputText;
 
+    @Getter
     @FindBy(xpath = "//input[@name='subjectbox']")
     public WebElement subjectInputText;
 
+    @Getter
     @FindBy(xpath = "//div[@aria-label='Message Body']")
     public WebElement emailBodyInputText;
 
+    @Getter
     @FindBy(xpath = "//div[@data-tooltip='More options']")
     public WebElement moreOptionsMenu;
 
+    @Getter
     @FindBy(xpath = "//div[contains(text(),'Label')]")
     public WebElement labelMenu;
 
@@ -53,31 +59,11 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[contains(text(),'Your Social tab is empty')]")
     public WebElement socialTabEmptyText;
 
-    public void clickComposeEmail() {
-        composeEmailButton.click();
-    }
-
     public void enterRecipientEmailAddresses(List<String> emailAddresses) {
         emailAddresses.forEach(emailAddress -> {
             recipientsInputText.sendKeys(emailAddress);
             recipientsInputText.sendKeys(", ");
         });
-    }
-
-    public void enterSubject(String subject) {
-        subjectInputText.sendKeys(subject);
-    }
-
-    public void enterBody(String body) {
-        emailBodyInputText.sendKeys(body);
-    }
-
-    public void clickMoreOptionsMenu() {
-        moreOptionsMenu.click();
-    }
-
-    public void clickOnLabelMenu() {
-        labelMenu.click();
     }
 
     public void selectCategory(String category) {

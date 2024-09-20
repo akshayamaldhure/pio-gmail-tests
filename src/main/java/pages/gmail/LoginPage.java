@@ -30,6 +30,7 @@ public class LoginPage extends BasePage {
     public WebElement wrongPasswordErrorText;
 
     public void enterEmail(String email) {
+        wait.until(ExpectedConditions.visibilityOf(emailTextInput));
         emailTextInput.sendKeys(email);
         emailTextInput.sendKeys(Keys.RETURN);
     }
@@ -40,7 +41,7 @@ public class LoginPage extends BasePage {
         passwordTextInput.sendKeys(Keys.RETURN);
     }
 
-    public boolean isLoginFailure() {
+    public boolean isLoginFailed() {
         try {
             return wrongPasswordErrorText.isDisplayed();
         } catch (NoSuchElementException e) {

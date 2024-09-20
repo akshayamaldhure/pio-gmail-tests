@@ -18,7 +18,7 @@ public class GmailBaseTest extends BaseTest {
         driver.get(GMAIL_HOME_URL);
         gmailLoginPage.enterEmail(GMAIL_ADDRESS);
         gmailLoginPage.enterPassword(GMAIL_PASSWORD);
-        Assert.assertFalse(gmailLoginPage.isLoginFailure(), "Login failed due to incorrect password");
+        Assert.assertFalse(gmailLoginPage.isLoginFailed(), "Login failed due to incorrect password");
         Assert.assertTrue(gmailHomePage.isLoginSuccessful(), "Login failed as the Gmail homepage could not be found");
     }
 }

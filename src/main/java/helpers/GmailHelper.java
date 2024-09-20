@@ -14,16 +14,16 @@ public class GmailHelper {
 
     public static void composeEmail(HomePage gmailHomePage, List<String> recipients, String subject, String body) {
         LOG.info("Composing an email with subject {} and body {}", subject, body);
-        gmailHomePage.clickComposeEmail();
+        gmailHomePage.getComposeEmailButton().click();
         gmailHomePage.enterRecipientEmailAddresses(recipients);
-        gmailHomePage.enterSubject(subject);
-        gmailHomePage.enterBody(body);
+        gmailHomePage.getSubjectInputText().sendKeys(subject);
+        gmailHomePage.getEmailBodyInputText().sendKeys(body);
     }
 
     public static void setEmailCategory(HomePage gmailHomePage, String category) {
         LOG.info("Setting the category of the email to {}", category);
-        gmailHomePage.clickMoreOptionsMenu();
-        gmailHomePage.clickOnLabelMenu();
+        gmailHomePage.getMoreOptionsMenu().click();
+        gmailHomePage.getLabelMenu().click();
         gmailHomePage.selectCategory(category);
     }
 

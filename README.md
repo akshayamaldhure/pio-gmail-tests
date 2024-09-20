@@ -9,12 +9,13 @@ This project contains UI test(s) for Gmail. It is based on Java, Gradle, TestNG,
 - TestNG
 - Gradle
 - Selenium WebDriver
+- Lombok
 - Logback
 
 ## System requirements
 - Java 17
 - Gradle 7.x
-- Chrome browser
+- Chrome browser (latest version as of 20/09 should work)
 
 ## Running the tests
 In order to run the tests locally, valid Gmail credentials must be supplied with the environment variables `GMAIL_ADDRESS` and `GMAIL_PASSWORD`.
@@ -30,6 +31,7 @@ GMAIL_ADDRESS=<gmail_address_here> GMAIL_PASSWORD=<gmail_password_here> make run
 - With separate page classes for each webpage in the application, it is easy to maintain and reuse the code across tests.
 - Separate base classes for initialising the tests and page objects make it easy to extend the solution to add more tests in the future.
 - Helper classes make it easy to reuse the common flows like login, waiting for an email to be received, etc. across multiple tests.
+- The use of Lombok library makes it easy to eliminate the need to define the methods for common operations like clicking, sending text, etc. done to the UI elements.
 
 ## Assumptions
 Since the tests have been authored against a third-party email service (Gmail), they have been written with below assumptions/pre-requisites.
