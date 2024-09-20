@@ -1,10 +1,12 @@
 package helpers;
 
+import org.awaitility.Awaitility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.gmail.HomePage;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class GmailHelper {
 
@@ -23,5 +25,16 @@ public class GmailHelper {
         gmailHomePage.clickMoreOptionsMenu();
         gmailHomePage.clickOnLabelMenu();
         gmailHomePage.selectCategory(category);
+    }
+
+    public static void waitUntilTheEmailIsReceived(HomePage gmailHomePage, int initialEmailsCount, String senderName, String subject) {
+        Awaitility
+                .with()
+                .pollInSameThread()
+                .pollInterval(2, TimeUnit.SECONDS)
+                .await()
+                .alias("Waiting until the total number of emails is increased by at least 1 to confirm email receipt")
+                .atMost(30, TimeUnit.SECONDS)
+                .until(gmailHomePage.isEmailCountIncreased(initialEmailsCount, senderName, subject));
     }
 }
