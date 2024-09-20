@@ -11,6 +11,9 @@ repositories {
 
 dependencies {
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.24.0'
+    implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.4.14'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.12'
     testImplementation group: 'org.testng', name: 'testng', version: '7.10.2'
 }
 

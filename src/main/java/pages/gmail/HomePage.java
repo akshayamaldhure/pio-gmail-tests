@@ -4,11 +4,15 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pages.BasePage;
 
 import java.util.List;
 
 public class HomePage extends BasePage {
+
+    private static final Logger LOG = LoggerFactory.getLogger(HomePage.class);
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -124,6 +128,7 @@ public class HomePage extends BasePage {
         try {
             return hamburgerMenu.isDisplayed();
         } catch (NoSuchElementException nsee) {
+            LOG.warn("Hamburger menu on Gmail homepage is not observed", nsee);
             return false;
         }
     }
@@ -133,6 +138,7 @@ public class HomePage extends BasePage {
             wait.until(ExpectedConditions.visibilityOf(emailSuccessPopupText));
             return true;
         } catch (NoSuchElementException | TimeoutException e) {
+            LOG.warn("Email success popup is not observed", e);
             return false;
         }
     }
@@ -141,6 +147,7 @@ public class HomePage extends BasePage {
         try {
             return socialTabEmptyText.isDisplayed();
         } catch (NoSuchElementException nsee) {
+            LOG.warn("Social tab is empty", nsee);
             return false;
         }
     }
