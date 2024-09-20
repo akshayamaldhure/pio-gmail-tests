@@ -43,8 +43,8 @@ public class LoginPage extends BasePage {
     public boolean isLoginFailure() {
         try {
             return wrongPasswordErrorText.isDisplayed();
-        } catch (NoSuchElementException nsee) {
-            LOG.warn("Error text for login failure is not seen", nsee);
+        } catch (NoSuchElementException e) {
+            LOG.warn("Error text for login failure is not seen", e);
             return false;
         }
     }

@@ -25,7 +25,7 @@ public class MailFullViewPage extends BasePage {
     public boolean hasSubject(String subject) {
         try {
             return driver.findElement(By.xpath("//h2[contains(text(),'" + subject + "')]")).isDisplayed();
-        } catch (NoSuchElementException nsee) {
+        } catch (NoSuchElementException e) {
             LOG.warn("Email subject {} not found", subject);
             return false;
         }
@@ -34,7 +34,7 @@ public class MailFullViewPage extends BasePage {
     public boolean hasBody(String body) {
         try {
             return driver.findElement(By.xpath("//div[contains(text(),'" + body + "')]")).isDisplayed();
-        } catch (NoSuchElementException nsee) {
+        } catch (NoSuchElementException e2) {
             LOG.warn("Email body {} not found", body);
             return false;
         }
@@ -43,8 +43,8 @@ public class MailFullViewPage extends BasePage {
     public boolean isStarred() {
         try {
             return emailStarred.isDisplayed();
-        } catch (NoSuchElementException nsee) {
-            LOG.warn("The email does not appear to be starred", nsee);
+        } catch (NoSuchElementException e) {
+            LOG.warn("The email does not appear to be starred", e);
             return false;
         }
     }

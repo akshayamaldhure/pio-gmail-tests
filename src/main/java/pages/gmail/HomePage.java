@@ -130,8 +130,8 @@ public class HomePage extends BasePage {
     public boolean isLoginSuccessful() {
         try {
             return hamburgerMenu.isDisplayed();
-        } catch (NoSuchElementException nsee) {
-            LOG.warn("Hamburger menu on Gmail homepage is not observed", nsee);
+        } catch (NoSuchElementException e) {
+            LOG.warn("Hamburger menu on Gmail homepage is not observed", e);
             return false;
         }
     }
@@ -150,8 +150,8 @@ public class HomePage extends BasePage {
     public boolean isSocialTabEmpty() {
         try {
             return socialTabEmptyText.isDisplayed();
-        } catch (NoSuchElementException nsee) {
-            LOG.warn("Social tab is empty", nsee);
+        } catch (NoSuchElementException e) {
+            LOG.warn("Social tab is empty", e);
             return false;
         }
     }

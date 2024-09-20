@@ -1,11 +1,9 @@
 package gmail;
 
-import constants.GmailTestGroups;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pages.gmail.HomePage;
@@ -22,10 +20,6 @@ public class BaseTest {
     HomePage gmailHomePage;
     MailFullViewPage mailPage;
 
-    final String GMAIL_HOME_URL = "https://gmail.com";
-    final String GMAIL_ADDRESS = System.getenv("GMAIL_ADDRESS");
-    final String GMAIL_PASSWORD = System.getenv("GMAIL_PASSWORD");
-
     @BeforeMethod(alwaysRun = true)
     public void initializeDriver() {
         LOG.info("Initialising ChromeDriver instance for Google Chrome browser");
@@ -38,18 +32,6 @@ public class BaseTest {
         gmailLoginPage = new LoginPage(driver);
         gmailHomePage = new HomePage(driver);
         mailPage = new MailFullViewPage(driver);
-    }
-
-    @BeforeMethod(groups = {GmailTestGroups.GMAIL, GmailTestGroups.NEEDS_LOGIN})
-    public void loginToGmail() {
-        if (GMAIL_ADDRESS == null || GMAIL_PASSWORD == null) {
-            throw new IllegalArgumentException("Invalid Gmail address or password. Please provide a valid Gmail username and password in the environment variables GMAIL_USERNAME and GMAIL_PASSWORD respectively to proceed.");
-        }
-        driver.get(GMAIL_HOME_URL);
-        gmailLoginPage.enterEmail(GMAIL_ADDRESS);
-        gmailLoginPage.enterPassword(GMAIL_PASSWORD);
-        Assert.assertFalse(gmailLoginPage.isLoginFailure(), "Login failed due to incorrect password");
-        Assert.assertTrue(gmailHomePage.isLoginSuccessful(), "Login failed as the Gmail homepage could not be found");
     }
 
     @AfterMethod(alwaysRun = true)

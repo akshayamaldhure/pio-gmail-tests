@@ -8,10 +8,9 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-public class SendEmailTests extends BaseTest {
+public class SendEmailTests extends GmailBaseTest {
 
     @Test(groups = {GmailTestGroups.GMAIL, GmailTestGroups.NEEDS_LOGIN})
     public void verifySendEmailToSelfUnderSocialCategoryIsSuccessful() {
@@ -36,10 +35,7 @@ public class SendEmailTests extends BaseTest {
         Assert.assertTrue(gmailHomePage.isEmailSendSuccessful(), "Email send failed");
 
         // wait for the email to be received based on the total email count
-        Awaitility.with().pollInSameThread().pollInterval(2, TimeUnit.SECONDS)
-                .await().alias("Waiting until the total number of emails is increased by at least 1 to confirm email receipt")
-                .atMost(30, TimeUnit.SECONDS)
-                .until(gmailHomePage.isEmailCountIncreased(initialEmailsCount, "me", SUBJECT));
+        Awaitility.with().pollInSameThread().pollInterval(2, TimeUnit.SECONDS).await().alias("Waiting until the total number of emails is increased by at least 1 to confirm email receipt").atMost(30, TimeUnit.SECONDS).until(gmailHomePage.isEmailCountIncreased(initialEmailsCount, "me", SUBJECT));
 
         Assert.assertFalse(gmailHomePage.isSocialTabEmpty(), "Social tab is empty on Gmail homepage");
 
