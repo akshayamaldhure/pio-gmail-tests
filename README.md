@@ -19,10 +19,10 @@ This project contains UI test(s) for Gmail. It is based on Java, Gradle, TestNG,
 - Chrome browser (latest version as of 20/09 should work)
 
 ## Running the tests
-In order to run the tests locally, valid Gmail credentials must be supplied with the environment variables `GMAIL_ADDRESS` and `GMAIL_PASSWORD`.
+In order to run the tests locally, valid Gmail credentials must be supplied with the environment variables `GMAIL_ADDRESS`, `GMAIL_PASSWORD` and `GMAIL_SECRET`.
 
 ```
-GMAIL_ADDRESS=<gmail_address_here> GMAIL_PASSWORD=<gmail_password_here> make run-tests
+GMAIL_ADDRESS=<gmail_address_here> GMAIL_PASSWORD=<gmail_password_here> GMAIL_SECRET=<gmail_authenticator_secret_here> make run-tests
 ```
 
 ## Technical details

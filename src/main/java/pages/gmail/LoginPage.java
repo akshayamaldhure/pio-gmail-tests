@@ -26,6 +26,12 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//input[@type='password']")
     public WebElement passwordTextInput;
 
+    @FindBy(xpath = "//input[@name='totpPin']")
+    public WebElement totpInputText;
+
+    @FindBy(xpath = "//input[@type='checkbox']")
+    public WebElement totpDontAskAgainCheckbox;
+
     @FindBy(xpath = "//*[contains(text(), 'Wrong password')]")
     public WebElement wrongPasswordErrorText;
 
@@ -39,6 +45,24 @@ public class LoginPage extends BasePage {
         wait.until(ExpectedConditions.visibilityOf(passwordTextInput));
         passwordTextInput.sendKeys(password);
         passwordTextInput.sendKeys(Keys.RETURN);
+    }
+
+    public boolean isTotpTextInputVisible() {
+        try {
+            return totpInputText.isDisplayed();
+        } catch (NoSuchElementException e) {
+            LOG.warn("TOTP input is not seen");
+            return false;
+        }
+    }
+
+    public void enterTotp(String totp, boolean dontAskAgainOnThisDevice) {
+        wait.until(ExpectedConditions.visibilityOf(totpInputText));
+        if (dontAskAgainOnThisDevice) {
+            totpDontAskAgainCheckbox.click();
+        }
+        totpInputText.sendKeys(totp);
+        totpInputText.sendKeys(Keys.RETURN);
     }
 
     public boolean isLoginFailed() {
