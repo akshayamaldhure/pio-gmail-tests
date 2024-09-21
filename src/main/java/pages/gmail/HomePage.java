@@ -80,8 +80,12 @@ public class HomePage extends BasePage {
         socialTab.click();
     }
 
+    private String getEmailRowXPath(String senderName, String subject) {
+        return "//tr[.//span[contains(text(), '" + senderName + "')] and .//span[contains(text(), '" + subject + "')]]";
+    }
+
     public void starLatestEmailBySenderAndSubject(String senderName, String subject) {
-        String starButtonXPath = "//tr[.//span[contains(text(), '" + senderName + "')] and .//span[contains(text(), '" + subject + "')]]//span[@aria-label='Not starred']";
+        String starButtonXPath = getEmailRowXPath(senderName, subject) + "//span[@aria-label='Not starred']";
         List<WebElement> starButtons = driver.findElements(By.xpath(starButtonXPath));
         if (starButtons.isEmpty()) {
             throw new IllegalArgumentException("Could not find any clickable Star button for the sender with name " + senderName + " and subject " + subject);
@@ -92,7 +96,7 @@ public class HomePage extends BasePage {
     }
 
     public boolean isLatestEmailBySenderAndSubjectStarred(String senderName, String subject) {
-        String starButtonXPath = "//tr[.//span[contains(text(), '" + senderName + "')] and .//span[contains(text(), '" + subject + "')]]//span[@aria-label='Starred']";
+        String starButtonXPath = getEmailRowXPath(senderName, subject) + "//span[@aria-label='Starred']";
         List<WebElement> starButtons = driver.findElements(By.xpath(starButtonXPath));
         if (starButtons.isEmpty()) {
             throw new IllegalArgumentException("Could not find any starred email for the sender with name " + senderName + " and subject " + subject);
@@ -103,8 +107,7 @@ public class HomePage extends BasePage {
     }
 
     public void openLatestEmailBySenderAndSubject(String senderName, String subject) {
-        String emailRowXPath = "//tr[.//span[contains(text(), '" + senderName + "')] and .//span[contains(text(), '" + subject + "')]]";
-        List<WebElement> emailRows = driver.findElements(By.xpath(emailRowXPath));
+        List<WebElement> emailRows = driver.findElements(By.xpath(getEmailRowXPath(senderName, subject)));
         if (emailRows.isEmpty()) {
             throw new IllegalArgumentException("Could not find any emails from the sender with name " + senderName + " and subject " + subject + " in the current view");
         }
@@ -143,7 +146,7 @@ public class HomePage extends BasePage {
     }
 
     public int getEmailsCount(String senderName, String subject) {
-        List<WebElement> emailRowElements = driver.findElements(By.xpath("//tr[.//span[contains(text(), '" + senderName + "')] and .//span[contains(text(), '" + subject + "')]]"));
+        List<WebElement> emailRowElements = driver.findElements(By.xpath(getEmailRowXPath(senderName, subject)));
         LOG.info("Found {} emails from the sender {} with subject {}", emailRowElements.size(), senderName, subject);
         return emailRowElements.size();
     }
