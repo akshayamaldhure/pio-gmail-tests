@@ -13,6 +13,7 @@ This project contains UI test(s) for Gmail. It is based on Java, Gradle, TestNG,
 - Logback
 
 ## System requirements
+- Linux (Ubuntu) or macOS
 - Java 17
 - Gradle 7.x
 - Chrome browser (latest version as of 20/09 should work)
