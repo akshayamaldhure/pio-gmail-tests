@@ -28,13 +28,6 @@ public class GmailHelper {
     }
 
     public static void waitUntilTheEmailIsReceived(HomePage gmailHomePage, int initialEmailsCount, String senderName, String subject) {
-        Awaitility
-                .with()
-                .pollInSameThread()
-                .pollInterval(2, TimeUnit.SECONDS)
-                .await()
-                .alias("Waiting until the total number of emails is increased by at least 1 to confirm email receipt")
-                .atMost(30, TimeUnit.SECONDS)
-                .until(gmailHomePage.isEmailCountIncreased(initialEmailsCount, senderName, subject));
+        Awaitility.with().pollInSameThread().pollInterval(2, TimeUnit.SECONDS).await().alias("Waiting until the total number of emails is increased by at least 1 to confirm email receipt").atMost(30, TimeUnit.SECONDS).until(() -> gmailHomePage.getEmailsCount(senderName, subject) - initialEmailsCount >= 1);
     }
 }

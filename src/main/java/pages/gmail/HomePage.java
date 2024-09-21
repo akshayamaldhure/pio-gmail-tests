@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import pages.BasePage;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class HomePage extends BasePage {
 
@@ -149,12 +148,5 @@ public class HomePage extends BasePage {
         List<WebElement> emailRowElements = driver.findElements(By.xpath(getEmailRowXPath(senderName, subject)));
         LOG.info("Found {} emails from the sender {} with subject {}", emailRowElements.size(), senderName, subject);
         return emailRowElements.size();
-    }
-
-    public Callable<Boolean> isEmailCountIncreased(int initialEmailsCount, String senderName, String subject) {
-        return () -> {
-            int newEmailsCount = this.getEmailsCount(senderName, subject);
-            return newEmailsCount - initialEmailsCount >= 1;
-        };
     }
 }
