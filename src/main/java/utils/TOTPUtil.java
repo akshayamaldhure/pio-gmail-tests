@@ -1,4 +1,4 @@
-package helpers;
+package utils;
 
 import com.bastiaanjansen.otp.HMACAlgorithm;
 import com.bastiaanjansen.otp.TOTPGenerator;
@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
-public class TOTPHelper {
+public class TOTPUtil {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TOTPHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TOTPUtil.class);
 
     public static String getTOTP(String key) {
         TOTPGenerator totpGenerator = new TOTPGenerator.Builder(key.getBytes()).withHOTPGenerator(builder -> {

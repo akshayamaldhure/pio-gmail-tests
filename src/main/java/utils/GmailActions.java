@@ -1,4 +1,4 @@
-package helpers;
+package utils;
 
 import org.awaitility.Awaitility;
 import org.slf4j.Logger;
@@ -8,9 +8,9 @@ import pages.gmail.HomePage;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class GmailHelper {
+public class GmailActions {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GmailHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GmailActions.class);
 
     public static void composeEmail(HomePage gmailHomePage, List<String> recipients, String subject, String body) {
         LOG.info("Composing an email with subject {} and body {}", subject, body);

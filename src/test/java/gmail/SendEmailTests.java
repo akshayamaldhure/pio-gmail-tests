@@ -1,7 +1,7 @@
 package gmail;
 
 import constants.GmailTestGroups;
-import helpers.GmailHelper;
+import utils.GmailActions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -28,13 +28,13 @@ public class SendEmailTests extends GmailBaseTest {
         final int initialEmailCount = gmailHomePage.getEmailsCount(SENDER_NAME, SUBJECT);
 
         // compose and send the email and validate success
-        GmailHelper.composeEmail(gmailHomePage, RECIPIENTS, SUBJECT, BODY);
-        GmailHelper.setEmailCategory(gmailHomePage, "Social");
+        GmailActions.composeEmail(gmailHomePage, RECIPIENTS, SUBJECT, BODY);
+        GmailActions.setEmailCategory(gmailHomePage, "Social");
         gmailHomePage.clickSendEmailButton();
         Assert.assertTrue(gmailHomePage.isEmailSendSuccessful(), "Email send failed");
 
         // wait for the email to be received based on the total email count
-        GmailHelper.waitUntilTheEmailIsReceived(gmailHomePage, initialEmailCount, SENDER_NAME, SUBJECT);
+        GmailActions.waitUntilTheEmailIsReceived(gmailHomePage, initialEmailCount, SENDER_NAME, SUBJECT);
 
         Assert.assertFalse(gmailHomePage.isSocialTabEmpty(), "Social tab is empty on Gmail homepage");
 
