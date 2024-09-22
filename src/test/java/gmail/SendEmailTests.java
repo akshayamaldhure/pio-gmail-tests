@@ -21,10 +21,10 @@ public class SendEmailTests extends GmailBaseTest {
 
         SoftAssert sofly = new SoftAssert();
 
-        // switch to the Social tab and validate non-empty state
+        // switch to the Social tab
         gmailHomePage.switchToSocialTab();
 
-        // get the initial count of emails in the inbox
+        // get the initial count of emails in the current view (Social tab in this case)
         final int initialEmailCount = gmailHomePage.getEmailsCount(SENDER_NAME, SUBJECT);
 
         // compose and send the email and validate success
@@ -33,9 +33,10 @@ public class SendEmailTests extends GmailBaseTest {
         gmailHomePage.clickSendEmailButton();
         Assert.assertTrue(gmailHomePage.isEmailSendSuccessful(), "Email send failed");
 
-        // wait for the email to be received based on the total email count
+        // wait for the email to be received (based on the total email count)
         GmailActions.waitUntilTheEmailIsReceived(gmailHomePage, initialEmailCount, SENDER_NAME, SUBJECT);
 
+        // ensure the Social tab is not empty
         Assert.assertFalse(gmailHomePage.isSocialTabEmpty(), "Social tab is empty on Gmail homepage");
 
         // mark the email as starred and validate starring success
