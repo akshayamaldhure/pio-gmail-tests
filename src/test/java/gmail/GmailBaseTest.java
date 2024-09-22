@@ -20,11 +20,12 @@ public class GmailBaseTest extends BaseTest {
         driver.get(GMAIL_HOME_URL);
         gmailLoginPage.enterEmail(GMAIL_ADDRESS);
         gmailLoginPage.enterPassword(GMAIL_PASSWORD);
-        Assert.assertFalse(gmailLoginPage.isLoginFailed(), "Login failed due to incorrect password");
+        Assert.assertFalse(gmailLoginPage.isLoginFailedDueToWrongPassword(), "Login failed due to incorrect password");
         String totp = TOTPHelper.getTOTP(GMAIL_SECRET);
-        if (gmailLoginPage.isTotpTextInputVisible()) {
+        if (gmailLoginPage.isTotpTextInputVisible()) { // handles the case of "don't ask again on this device"
             gmailLoginPage.enterTotp(totp, true);
+            Assert.assertFalse(gmailLoginPage.isLoginFailedDueToWrongTOTP(), "Login failed due to incorrect TOTP");
         }
-        Assert.assertTrue(gmailHomePage.isLoginSuccessful(), "Login failed as the Gmail homepage could not be found");
+        Assert.assertTrue(gmailHomePage.isLoginSuccessful(), "Login failed as the Gmail homepage could not be seen");
     }
 }

@@ -35,6 +35,9 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//*[contains(text(), 'Wrong password')]")
     public WebElement wrongPasswordErrorText;
 
+    @FindBy(xpath = "//*[contains(text(), 'Wrong code')]")
+    public WebElement wrongTOTPErrorText;
+
     public void enterEmail(String email) {
         wait.until(ExpectedConditions.visibilityOf(emailTextInput));
         emailTextInput.sendKeys(email);
@@ -65,11 +68,20 @@ public class LoginPage extends BasePage {
         totpInputText.sendKeys(Keys.RETURN);
     }
 
-    public boolean isLoginFailed() {
+    public boolean isLoginFailedDueToWrongPassword() {
         try {
             return wrongPasswordErrorText.isDisplayed();
         } catch (NoSuchElementException e) {
-            LOG.warn("Error text for login failure is not seen", e);
+            LOG.info("Error text for login failure due to wrong password is not seen", e);
+            return false;
+        }
+    }
+
+    public boolean isLoginFailedDueToWrongTOTP() {
+        try {
+            return wrongTOTPErrorText.isDisplayed();
+        } catch (NoSuchElementException e) {
+            LOG.info("Error text for login failure due to wrong TOTP is not seen", e);
             return false;
         }
     }
