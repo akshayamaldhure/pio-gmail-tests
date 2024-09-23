@@ -22,6 +22,8 @@ public class SendEmailTests extends GmailBaseTest {
         SoftAssert sofly = new SoftAssert();
 
         // switch to the Social tab
+        // while the email marked as Social arrives under the Social tab correctly, the email full view somehow shows the label as Inbox
+        // so we are validating the label here by explicitly switching to the Social tab
         gmailHomePage.switchToSocialTab();
 
         // get the initial count of emails in the current view (Social tab in this case)
